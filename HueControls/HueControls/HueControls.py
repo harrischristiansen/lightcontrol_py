@@ -4,22 +4,31 @@
 	HueControls: Package for controlling Philips Hue Lights
 '''
 
-import logging
-import requests
+from .HueControlsBase import HueControlsBase
 
-class HueControls(object):
-
+class HueControls(HueControlsBase):
 	def __init__(self, hueIPaddr, hueAPIKey):
-		if len(hueIPaddr) < 8 or len(hueAPIKey) < 20:
-			raise ValueError('Error: Hue IP Address and API Key are required')
+		HueControlsBase.__init__(self,hueIPaddr, hueAPIKey)
 
-		self.ipaddr = hueIPaddr
-		self.apiKey = hueAPIKey
-		self.baseUrl = 'http://' + self.ipaddr + '/api'
-		self.baseAuthUrl = self.baseUrl + '/' + self.apiKey
-		logging.debug("Connected to Hue Bridge!")
+	# Get Requests
 
-	def setLight(self, lightID, color, brightness=255, transitionTime=10):
-		putRequest = requests.put(self.baseAuthUrl + '/lights/' + str(lightID) +'/state',
-			data='{"bri": ' + str(brightness) + ', "transitiontime" : ' + str(transitionTime) + ', "hue": ' + str(color) +'}')
-		return putRequest
+	def getLight(self, lightID):
+		return self._getLightRequest(lightID)
+
+	def getBrightness(self, lightID):
+		return 0
+
+	def getColor(self, lightID):
+		return 0
+
+	# Put Requests
+
+	def setLight(self, lightID, color, brightness=255, transitionTime=5):
+		data = '{"bri": ' + str(brightness) + ', "transitiontime" : ' + str(transitionTime) + ', "hue": ' + str(color) +'}'
+		return self._putLightRequest(lightID, data)
+
+	def setAllLights(self, color, brightness=255, transitionTime=5):
+		data = '{"bri": ' + str(brightness) + ', "transitiontime" : ' + str(transitionTime) + ', "hue": ' + str(color) +'}'
+		for lightID in self._lightIDs:
+			self._putLightRequest(lightID, data)
+		return True
