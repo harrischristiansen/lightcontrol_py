@@ -4,6 +4,7 @@
 	HueControls: Package for controlling Philips Hue Lights
 '''
 
+import json
 import logging
 import requests
 
@@ -53,6 +54,18 @@ class HueControlsBase(object):
 		logging.debug("Connected to Hue Bridge!")
 
 	# Put Requests
+
+	def buildRequest(self, brightness=None, transitionTime=None, xyColor=None, hue=None):
+		request = {}
+		if brightness:
+			request['bri'] = int(brightness)
+		if transitionTime:
+			request['transitiontime'] = int(transitionTime)
+		if xyColor:
+			request['xy'] = xyColor
+		if hue:
+			request['hue'] = int(hue)
+		return json.dumps(request)
 
 	def _putLightRequest(self, lightID, data):
 		return requests.put(self._getLightPutURL(lightID), data=data)
