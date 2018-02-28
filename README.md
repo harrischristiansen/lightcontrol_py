@@ -10,7 +10,6 @@ Project available on [GitHub](https://github.com/harrischristiansen/lightcontrol
 
 - [ ] Python 3 (https://www.python.org/downloads/)
 - [ ] Install Dependencies: `pip3 install -r requirements.txt`
-- [ ] NPM Forever: `npm install -g forever` (optional)
 
 ## Usage
 
