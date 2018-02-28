@@ -10,4 +10,4 @@ HUE_BRIDGE_API_KEY = 'd5orxbetHKF46FCV1wBmnFTVNSkGQWMSjwNOHu2i'
 from HueControls import HueControls
 
 controls = HueControls(HUE_BRIDGE_IP, HUE_BRIDGE_API_KEY)
-controls.setAllLights(10000,255)
+controls.setLight(17,30000,255)
