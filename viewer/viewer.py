@@ -9,23 +9,26 @@ import pygame
 import threading
 import time
 
-from colors import *
+from .colors import *
 
 # UI Properies
 FONT_SIZE = 16
 FONT_LRG_SIZE = 22
+LIGHT_WIDTH = 20
 TITLE_ROW_HEIGHT = 35
 ACTIONBAR_ROW_HEIGHT = 25
 ACTIONBAR_BTN_WIDTH = 80
-ROWS = [TITLE_ROW_HEIGHT, ACTIONBAR_ROW_HEIGHT]
-WINDOW_WIDTH = ACTIONBAR_BTN_WIDTH*2
+LIGHT_ROW_HEIGHT = 300
+ROWS = [TITLE_ROW_HEIGHT, ACTIONBAR_ROW_HEIGHT, LIGHT_ROW_HEIGHT]
+WINDOW_WIDTH = ACTIONBAR_BTN_WIDTH*3
 
 class ControlsViewer(object):
 	def __init__(self, windowTitle=None):
 		self._runPygame = True
 		self._windowTitle = windowTitle
 		self._receivedUpdate = False
-		self._clicked = None
+		self._showLights = False
+		self._actions = [None, None]
 
 	def mainViewerLoop(self):
 		while not self._receivedUpdate: # Wait for first update
@@ -50,13 +53,21 @@ class ControlsViewer(object):
 
 		pygame.quit() # Done. Quit pygame.
 
-	''' ======================== Call to update viewer with new map state ======================== '''
+	''' ======================== Public calls to set viewer attributes/callbacks ======================== '''
 
-	def updateViewer(self, title):
+	def setTitle(self, title):
 		self._title = title
 		self._receivedUpdate = True
-
 		return self
+
+	def setLights(self, lights):
+		self._lights = lights
+		self._showLights = True
+		self._receivedUpdate = True
+		return self
+
+	def setAction(self, index, action):
+		self._actions[index] = action
 
 	''' ======================== PRIVATE METHODS - Viewer Init - PRIVATE METHODS ======================== '''
 
@@ -66,7 +77,7 @@ class ControlsViewer(object):
 		# Set Window Size
 		window_height = sum(ROWS)
 		window_width = WINDOW_WIDTH
-		self._window_size = [window_width, window_height]
+		self._window_size = (window_width, window_height)
 		self._screen = pygame.display.set_mode(self._window_size)
 
 		# Set Window Title
@@ -92,8 +103,12 @@ class ControlsViewer(object):
 	def _handleActionClick(self, x):
 		if x < ACTIONBAR_BTN_WIDTH: # Action 1
 			logging.debug("Action 1 clicked")
+			if self._actions[0] != None:
+				self._actions[0]()
 		elif x < ACTIONBAR_BTN_WIDTH*2: # Action 2
 			logging.debug("Action 2 clicked")
+			if self._actions[1] != None:
+				self._actions[1]()
 		self._receivedUpdate = True # Request Redraw
 
 	''' ======================== Handle Keypresses ======================== '''
@@ -114,9 +129,11 @@ class ControlsViewer(object):
 		self._screen.fill(BLACK) # Set BG Color
 		self._drawTitle()
 		self._drawActionbar()
+		if self._showLights:
+			self._drawLights()
 
 		self._clock.tick(60) # Limit to 60 FPS
-		pygame.display.flip() # update screen with new drawing
+		pygame.display.flip() # Update screen with new drawing
 
 	def _drawTitle(self):
 		pos_top = 0
@@ -134,9 +151,20 @@ class ControlsViewer(object):
 		pygame.draw.rect(self._screen, GREEN_DARK, [ACTIONBAR_BTN_WIDTH, pos_top, ACTIONBAR_BTN_WIDTH, ACTIONBAR_ROW_HEIGHT])
 		self._screen.blit(self._font.render("Action 2", True, WHITE), (ACTIONBAR_BTN_WIDTH+10, pos_top+4))
 
+	def _drawLights(self):
+		pos_top = sum(ROWS[0:2])
+		height = LIGHT_ROW_HEIGHT
+		width = WINDOW_WIDTH
+
+		for light in self._lights:
+			radius = int(LIGHT_WIDTH/2)
+			top = pos_top + int(height * light.y) + radius
+			left = int(width * light.x) + radius
+			pygame.draw.circle(self._screen, BLUE, [left, top], radius)
+
 if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)
 	logging.debug("Viewer called on it's own, performing self test")
 	viewer = ControlsViewer("Window Title")
-	viewer.updateViewer("Item Title")
+	viewer.setTitle("Item Title")
 	viewer.mainViewerLoop()
