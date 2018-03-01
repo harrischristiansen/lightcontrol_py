@@ -1,0 +1,10 @@
+# Color Definitions
+BLACK = (0,0,0)
+GRAY_DARK = (110,110,110)
+GRAY = (160,160,160)
+WHITE = (255,255,255)
+GOLD = (217, 163, 0)
+RED = (255,0,0)
+BLUE = (0,0,255)
+GREEN = (0,255,0)
+GREEN_DARK = (0,128,0)
