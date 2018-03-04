@@ -9,7 +9,10 @@ import pygame
 import threading
 import time
 
-from .colors import *
+if __name__ == '__main__':
+	from colors import *
+else:
+	from .colors import *
 
 # UI Properies
 FONT_SIZE = 16
@@ -164,7 +167,8 @@ class ControlsViewer(object):
 
 if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)
-	logging.debug("Viewer called on it's own, performing self test")
+	filename = __file__[__file__.rfind('/')+1:]
+	logging.debug("%s called on it's own, performing self test" % filename)
 	viewer = ControlsViewer("Window Title")
 	viewer.setTitle("Item Title")
 	viewer.mainViewerLoop()

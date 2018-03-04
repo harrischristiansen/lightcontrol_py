@@ -40,15 +40,15 @@ class HueControls(HueControlsBase):
 	# Put Requests
 
 	def setLight(self, lightID, xyColor, brightness=255, transitionTime=5):
-		data = self.buildRequest(brightness, transitionTime, xyColor)
+		data = self._buildRequest(brightness, transitionTime, xyColor)
 		return self._putLightRequest(lightID, data)
 
 	def setLightHue(self, lightID, hue, brightness=255, transitionTime=5):
-		data = self.buildRequest(brightness, transitionTime, hue=hue)
+		data = self._buildRequest(brightness, transitionTime, hue=hue)
 		return self._putLightRequest(lightID, data)
 
 	def setAllLights(self, xyColor, brightness=255, transitionTime=5):
-		data = self.buildRequest(brightness, transitionTime, xyColor)
+		data = self._buildRequest(brightness, transitionTime, xyColor)
 		for lightID in self._lightIDs:
 			self._putLightRequest(lightID, data)
 		return True

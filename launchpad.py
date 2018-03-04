@@ -29,7 +29,7 @@ def bootupSeq():
 def init():
 	global lp
 	controls = HueControls(HUE_BRIDGE_IP, HUE_BRIDGE_API_KEY)
-	controls.setAllLights(controls.hexToXY("#FF0000"))
+	#controls.setAllLights(controls.hexToXY("#FF0000"))
 
 	lp = launchpad_py.LaunchpadPro()
 
@@ -44,25 +44,36 @@ def close():
 	lp.Reset()
 	lp.Close()
 
-def setColorpad():
-	lp.LedCtrlXY(0, 1, 255, 0, 0)
-	lp.LedCtrlXY(0, 2, 0, 255, 0)
-	lp.LedCtrlXY(0, 3, 0, 0, 255)
+def colorFor(x, y):
+	if x == 0:
+		if y == 1:
+			return (255, 0, 0)
+		if y == 2:
+			return (0, 255, 0)
+		if y == 3:
+			return (0, 0, 255)
+	return (255, 255, 255)
 
-lastCoord = (0, 0)
+def colorWithCoord(x, y):
+	color = colorFor(x, y)
+	return (x, y) + color
+
+def setColorpad():
+	lp.LedCtrlXY(*colorWithCoord(0, 1))
+	lp.LedCtrlXY(*colorWithCoord(0, 2))
+	lp.LedCtrlXY(*colorWithCoord(0, 3))
+
 def checkUserSequence():
-	global lastCoord
 	lp.ButtonFlush()
 	while True:
 		state = lp.ButtonStateXY()
 		if state:
 			x, y, pressed = state
-			if lastCoord != (x, y):
-				lastCoord = (x, y)
-				return False
-			print("pushed coord: (%s, %s, %s)" % (x, y, pressed))
-			lp.LedAllOn(LP_WHITE)
-			setColorpad()
+			if pressed != 0:
+				logging.debug("Pressed button: (%s, %s, %s)" % (x, y, pressed))
+				lp.LedCtrlXY(x, y, 255, 255, 0)
+			else:
+				lp.LedCtrlXY(*colorWithCoord(x, y))
 
 def main():
 	setColorpad()
@@ -70,6 +81,7 @@ def main():
 		checkUserSequence()
 
 if __name__ == "__main__":
+	logging.basicConfig(level=logging.DEBUG)
 	init()
 	try:
 		main()

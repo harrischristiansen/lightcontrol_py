@@ -55,7 +55,7 @@ class HueControlsBase(object):
 
 	# Put Requests
 
-	def buildRequest(self, brightness=None, transitionTime=None, xyColor=None, hue=None):
+	def _buildRequest(self, brightness=None, transitionTime=None, xyColor=None, hue=None):
 		request = {}
 		if brightness:
 			request['bri'] = int(brightness)
@@ -69,3 +69,9 @@ class HueControlsBase(object):
 
 	def _putLightRequest(self, lightID, data):
 		return requests.put(self._getLightPutURL(lightID), data=data)
+
+if __name__ == '__main__':
+	logging.basicConfig(level=logging.DEBUG)
+	filename = __file__[__file__.rfind('/')+1:]
+	logging.debug("%s called on it's own, performing self test" % filename)
+	base = HueControlsBase("0.0.0.0", "abcdefghijklmnopqrstuvwxyz")
