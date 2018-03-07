@@ -1,7 +1,7 @@
 '''
 	@Harris Christiansen (code@harrischristiansen.com)
 	Light Controls - https://github.com/harrischristiansen/lightcontrol_py
-	Controls: Basic test lighting controls
+	Launchpad: Lighting Controller using Novation Launchpad
 '''
 
 HUE_BRIDGE_IP = '10.3.0.177'
@@ -12,10 +12,8 @@ import launchpad_py
 import logging
 import time
 
-LP_RED = 5
-LP_GREEN = 21
-LP_BLUE = 79
-LP_WHITE = 3
+from lppro_colorcodes import *
+from colormap import colormap
 
 controls = None
 lp = None
@@ -23,11 +21,11 @@ lp = None
 def bootupSeq():
 	for i in [LP_RED, LP_GREEN, LP_BLUE, LP_WHITE]:
 		if i != LP_RED:
-			time.sleep(0.5)
+			time.sleep(0.4)
 		lp.LedAllOn(i)
 
 def init():
-	global lp
+	global lp, controls
 	controls = HueControls(HUE_BRIDGE_IP, HUE_BRIDGE_API_KEY)
 	#controls.setAllLights(controls.hexToXY("#FF0000"))
 
@@ -45,13 +43,9 @@ def close():
 	lp.Close()
 
 def colorFor(x, y):
-	if x == 0:
-		if y == 1:
-			return (255, 0, 0)
-		if y == 2:
-			return (0, 255, 0)
-		if y == 3:
-			return (0, 0, 255)
+	index = x*8 + (y-1)
+	if index < len(colormap):
+		return colormap[index]
 	return (255, 255, 255)
 
 def colorWithCoord(x, y):
@@ -71,6 +65,7 @@ def checkUserSequence():
 			x, y, pressed = state
 			if pressed != 0:
 				logging.debug("Pressed button: (%s, %s, %s)" % (x, y, pressed))
+				controls.setAllLights(controls.rgbToXY(*colorFor(x,y)), transitionTime=2)
 				lp.LedCtrlXY(x, y, 255, 255, 0)
 			else:
 				lp.LedCtrlXY(*colorWithCoord(x, y))
