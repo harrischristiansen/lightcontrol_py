@@ -59,7 +59,7 @@ class HueControlsBase(object):
 		request = {}
 		if brightness:
 			request['bri'] = int(brightness)
-		if transitionTime:
+		if transitionTime != None:
 			request['transitiontime'] = int(transitionTime)
 		if xyColor:
 			request['xy'] = xyColor
