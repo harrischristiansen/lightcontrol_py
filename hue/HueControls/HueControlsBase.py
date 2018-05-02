@@ -8,6 +8,7 @@ import json
 import logging
 import requests
 import asyncio
+import concurrent.futures
 
 class HueControlsBase(object):
 	def __init__(self, hueIPaddr, hueAPIKey):
@@ -20,6 +21,7 @@ class HueControlsBase(object):
 		self._apiPath = '/api' + '/' + self._apiKey
 		self._apiURL = self._baseURL + self._apiPath
 
+		self._queue_executor = concurrent.futures.ThreadPoolExecutor(max_workers=20)
 		self._update_queue = asyncio.get_event_loop()
 
 		self._lights = self._lightIDs = {}
@@ -80,7 +82,7 @@ class HueControlsBase(object):
 	def _putLightRequest(self, lightID, data):
 		#return requests.put(self._getLightPutURL(lightID), data=data)
 		self._update_queue.run_in_executor(
-            None, 
+            self._queue_executor, 
             self._emitLightRequest, 
             lightID,
             data
