@@ -7,6 +7,7 @@
 import json
 import logging
 import requests
+import asyncio
 
 class HueControlsBase(object):
 	def __init__(self, hueIPaddr, hueAPIKey):
@@ -19,9 +20,14 @@ class HueControlsBase(object):
 		self._apiPath = '/api' + '/' + self._apiKey
 		self._apiURL = self._baseURL + self._apiPath
 
+		self._update_queue = asyncio.get_event_loop()
+
 		self._lights = self._lightIDs = {}
 		self._lightCount = 0
 		self._loadLights()
+
+	def runLightQueue(self):
+		self._update_queue.run_forever()
 
 	# Request URLs
 
@@ -68,8 +74,17 @@ class HueControlsBase(object):
 			request['hue'] = int(hue)
 		return json.dumps(request)
 
-	def _putLightRequest(self, lightID, data):
+	def _emitLightRequest(self, lightID, data):
 		return requests.put(self._getLightPutURL(lightID), data=data)
+
+	def _putLightRequest(self, lightID, data):
+		#return requests.put(self._getLightPutURL(lightID), data=data)
+		self._update_queue.run_in_executor(
+            None, 
+            self._emitLightRequest, 
+            lightID,
+            data
+        )
 
 if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)

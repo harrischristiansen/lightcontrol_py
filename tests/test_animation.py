@@ -40,3 +40,4 @@ def spawn(f, *args):
 if __name__ == '__main__':
 	spawn(loopAnimation, 6)
 	spawn(loopAnimation, 7)
+	controls.runLightQueue()
