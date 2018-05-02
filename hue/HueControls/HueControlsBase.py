@@ -69,6 +69,8 @@ class HueControlsBase(object):
 		return json.dumps(request)
 
 	def _putLightRequest(self, lightID, data):
+		logging.debug(self._getLightPutURL(lightID))
+		logging.debug(data)
 		return requests.put(self._getLightPutURL(lightID), data=data)
 
 if __name__ == '__main__':
