@@ -15,8 +15,9 @@ class HueControlsBase(object):
 
 		self._ipaddr = hueIPaddr
 		self._apiKey = hueAPIKey
-		self._baseURL = 'http://' + self._ipaddr + '/api'
-		self._baseAuthURL = self._baseURL + '/' + self._apiKey
+		self._baseURL = 'http://' + self._ipaddr
+		self._apiPath = '/api' + '/' + self._apiKey
+		self._apiURL = self._baseURL + self._apiPath
 
 		self._lights = self._lightIDs = {}
 		self._lightCount = 0
@@ -25,7 +26,7 @@ class HueControlsBase(object):
 	# Request URLs
 
 	def _getLightsURL(self):
-		return self._baseAuthURL + '/lights/'
+		return self._apiURL + '/lights/'
 
 	def _getLightQueryURL(self, lightID):
 		return self._getLightsURL() + str(lightID)
@@ -34,7 +35,7 @@ class HueControlsBase(object):
 		return self._getLightQueryURL(lightID) +'/state'
 
 	def _getGroupActionPutURL(self, groupID):
-		return self._baseAuthURL + '/groups/' + str(groupID) +'/action'
+		return self._apiURL + '/groups/' + str(groupID) +'/action'
 
 	# Get Requests
 
