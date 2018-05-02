@@ -4,7 +4,7 @@
 	Fuse Lights: Light definitions for Fuse
 '''
 
-from light import Light
+from LightControl import Light
 
 window		= Light(5, "Window", 0.5, 0.9)
 couch		= Light(6, "Couch", 0.5, 0.8)

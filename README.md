@@ -11,11 +11,12 @@ Project available on [GitHub](https://github.com/harrischristiansen/lightcontrol
 - [ ] Python 3 (https://www.python.org/downloads/)
 - [ ] Install Dependencies: `pip3 install -r requirements.txt`
 - [ ] Install Local Packages:
-	- [ ] Hue Controls: `pip3 install -e HueControls`
+	- [ ] Hue Controls: `pip3 install -e hue`
+	- [ ] Hue Controls: `pip3 install -e lightcontrol`
 
-## Usage
+## Tests: `cd tests`
 
-- [ ] Light Controller: `python3 control.py`
+- [ ] Animation Test: `python3 test_animation.py`
 
 ## Contributors
 

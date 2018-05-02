@@ -4,16 +4,11 @@
 	Fuse Light Controller: Light controller for Fuse apartment
 '''
 
-from HueControls import HueControls
 import logging
+logging.basicConfig(level=logging.DEBUG)
+from config import *
 
 import fuselights
-from viewer.viewer import ControlsViewer
-
-HUE_BRIDGE_IP = '10.3.0.177'
-HUE_BRIDGE_API_KEY = 'd5orxbetHKF46FCV1wBmnFTVNSkGQWMSjwNOHu2i'
-
-controls = HueControls(HUE_BRIDGE_IP, HUE_BRIDGE_API_KEY)
 
 def setLightsBlue():
 	controls.setAllLights(controls.hexToXY("#0000FF"))

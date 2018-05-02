@@ -5,8 +5,7 @@
 '''
 
 from HueControls import HueControls
-from animations.AnimationStep import AnimationStep
-import fuselights
+from LightControl import *
 
 #HUE_BRIDGE_IP = '10.3.0.177' # Fuse
 #HUE_BRIDGE_API_KEY = ' d5orxbetHKF46FCV1wBmnFTVNSkGQWMSjwNOHu2i'
