@@ -26,18 +26,39 @@ animation = [
 	AnimationStep(controls, LIGHT_ID, BLUE),
 ]
 
-def loopAnimation(lightID):
+animation2 = [
+	AnimationStep(controls, fuselights.window.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.couch.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.mid.lightID,		RED,	tsTime=2),
+	AnimationStep(controls, fuselights.tv.lightID,		BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.wall.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.tvstand.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.fridge.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.sink.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.oven.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.bar.lightID,		BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.cabinet.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.table.lightID,	BLUE,	tsTime=2, sTime=10),
+
+	AnimationStep(controls, fuselights.window.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.couch.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.mid.lightID,		BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.tv.lightID,		RED,	tsTime=2),
+	AnimationStep(controls, fuselights.wall.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.tvstand.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.fridge.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.sink.lightID,	RED,	tsTime=2),
+	AnimationStep(controls, fuselights.oven.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.bar.lightID,		RED,	tsTime=2),
+	AnimationStep(controls, fuselights.cabinet.lightID,	BLUE,	tsTime=2),
+	AnimationStep(controls, fuselights.table.lightID,	RED,	tsTime=2),
+]
+
+def loopAnimation():
 	for i in range(10):
 		for step in animation:
-			step.triggerStep(lightID)
-
-import threading
-def spawn(f, *args):
-	t = threading.Thread(target=f, args=args)
-	#t.daemon = True
-	t.start()
+			step.triggerStep()
 
 if __name__ == '__main__':
-	spawn(loopAnimation, 6)
-	spawn(loopAnimation, 7)
-	controls.runLightQueue()
+	controls.startLightQueue()
+	loopAnimation()

@@ -4,11 +4,12 @@
 	HueControls: Package for controlling Philips Hue Lights
 '''
 
+import asyncio
+import concurrent.futures
 import json
 import logging
 import requests
-import asyncio
-import concurrent.futures
+import threading
 
 class HueControlsBase(object):
 	def __init__(self, hueIPaddr, hueAPIKey):
@@ -28,8 +29,8 @@ class HueControlsBase(object):
 		self._lightCount = 0
 		self._loadLights()
 
-	def runLightQueue(self):
-		self._update_queue.run_forever()
+	def startLightQueue(self):
+		self._spawn(self._update_queue.run_forever)
 
 	# Request URLs
 
@@ -80,13 +81,19 @@ class HueControlsBase(object):
 		return requests.put(self._getLightPutURL(lightID), data=data)
 
 	def _putLightRequest(self, lightID, data):
-		#return requests.put(self._getLightPutURL(lightID), data=data)
 		self._update_queue.run_in_executor(
-            self._queue_executor, 
-            self._emitLightRequest, 
-            lightID,
-            data
-        )
+			self._queue_executor, 
+			self._emitLightRequest, 
+			lightID,
+			data
+		)
+
+	# Helpers
+
+	def _spawn(self, f, *args):
+		t = threading.Thread(target=f, args=args)
+		#t.daemon = True
+		t.start()
 
 if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)
