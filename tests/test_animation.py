@@ -10,10 +10,10 @@ from config import *
 
 import fuselights
 flashAnimation = FlashAnimation(fuselights.mainroom, [WHITE, RED, BLUE], numCycles=2, numFlashes=3)
-twinkleAnimation = TwinkleFadeAnimation(fuselights.mainroom, [ORANGE, BLUE, RED, PURPLE, GREEN], numCycles=2)
+twinkleAnimation = TwinkleFadeAnimation(fuselights.mainroom, [ORANGE, BLUE, RED, PURPLE, GREEN], numCycles=4)
+chaseAnimation = ChaseAnimation(fuselights.mainroom, [PURPLE, RED, BLUE], numCycles=3, blockSize=12, moveDelay=0.25)
 
 if __name__ == '__main__':
 	controls.startLightQueue()
-	flashAnimation.runAnimation()
-	#twinkleAnimation.runAnimation()
+	chaseAnimation.runAnimation()
 	controls.stopLightQueue()

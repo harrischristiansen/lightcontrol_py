@@ -24,8 +24,8 @@ lamp_btm	= Light(controls, 12, "Lamp Bottom", 0.81, 0.81)
 bath_main	= Light(controls, 16, "Main Bathroom", 0.9, 0.5)
 bath_guest	= Light(controls, 17, "Guest Bathroom", 0.1, 0.5)
 
-kitchen = [sink, oven, bar, fridge, cabinet]
-living = [window, couch, tv, mid, wall, tvstand, table]
+kitchen = [cabinet, sink, oven, bar, fridge]
+living = [tvstand, mid, couch, tv, window, wall, table]
 guest = [lamp_top, lamp_mid, lamp_btm]
 bath = [bath_main, bath_guest]
 
