@@ -1,7 +1,7 @@
 '''
 	@Harris Christiansen (code@harrischristiansen.com)
 	Light Controls - https://github.com/harrischristiansen/lightcontrol_py
-	BaseAnimation: Base Animation Defintion
+	BaseAnimation: Base Animation Class
 '''
 
 import logging

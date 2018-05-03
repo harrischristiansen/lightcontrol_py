@@ -29,13 +29,15 @@ class HueControlsBase(object):
 		self._lightCount = 0
 		self._loadLights()
 
+	# --------------- Multithreading Light Queue ---------------
+
 	def startLightQueue(self):
 		self._spawn(self._update_queue.run_forever)
 
 	def stopLightQueue(self):
 		self._update_queue.stop()
 
-	# Request URLs
+	# --------------- Request URLs ---------------
 
 	def _getLightsURL(self):
 		return self._apiURL + '/lights/'
@@ -49,7 +51,7 @@ class HueControlsBase(object):
 	def _getGroupActionPutURL(self, groupID):
 		return self._apiURL + '/groups/' + str(groupID) +'/action'
 
-	# Get Requests
+	# --------------- GET Requests ---------------
 
 	def _getLightRequest(self, lightID):
 		light = requests.get(self._getLightQueryURL(lightID))
@@ -66,7 +68,7 @@ class HueControlsBase(object):
 		self._lightCount = len(self._lights)
 		logging.debug("Connected to Hue Bridge!")
 
-	# Put Requests
+	# --------------- PUT Requests ---------------
 
 	def _buildRequest(self, brightness=None, transitionTime=None, xyColor=None, hue=None):
 		request = {}
@@ -91,7 +93,7 @@ class HueControlsBase(object):
 			data
 		)
 
-	# Helpers
+	# --------------- Helpers ---------------
 
 	def _spawn(self, f, *args):
 		t = threading.Thread(target=f, args=args)
