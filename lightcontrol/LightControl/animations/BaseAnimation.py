@@ -5,10 +5,15 @@
 '''
 
 from .AnimationStep import AnimationStep
+from ..lights.light import Light
 
 class BaseAnimation(object):
-	def __init__(self, controls, lights=[], colors=[], numCycles=1, speed=1):
-		self._controls = controls							# Light Control API
+	def __init__(self, lights=[], colors=[], numCycles=1, speed=1):
+		if not isinstance(lights, list):
+			raise ValueError("lights must be a list of Light Objects")
+		if not isinstance(lights[0], Light):
+			raise ValueError("lights must be a list of Light Objects")
+
 		self._lights = lights								# List of lights for animation
 		self._lightsLen = len(lights)						# Count of lights for animation
 		self._colors = colors								# List of colors for animation
@@ -26,8 +31,8 @@ class BaseAnimation(object):
 			for step in self._sequence:
 				step.triggerStep()
 
-	def createStep(self, lightID, color, tsTime=0, sTime=-1):
-		return AnimationStep(self._controls, lightID, color, tsTime, sTime)
+	def createStep(self, light, color, tsTime=0, sTime=-1):
+		return AnimationStep(light, color, tsTime, sTime)
 
 	def _generateAnimationSequence(self):
 		self._initialSequence = []

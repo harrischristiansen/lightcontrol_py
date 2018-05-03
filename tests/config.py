@@ -14,10 +14,10 @@ HUE_BRIDGE_API_KEY = 'd5orxbetHKF46FCV1wBmnFTVNSkGQWMSjwNOHu2i'
 
 controls = HueControls(HUE_BRIDGE_IP, HUE_BRIDGE_API_KEY)
 
-WHITE = "#FFFFFF"
-RED = "#FF0000"
-GREEN = "#00FF00"
-BLUE = "#0000FF"
-ORANGE = "#904000" # "#FFA500"
-PURPLE = "#800080"
-YELLOW = "#ffb400"
+WHITE	= controls.hexToXY("#FFFFFF")
+RED		= controls.hexToXY("#FF0000")
+GREEN	= controls.hexToXY("#00FF00")
+BLUE	= controls.hexToXY("#0000FF")
+ORANGE	= controls.hexToXY("#904000")
+PURPLE	= controls.hexToXY("#800080")
+YELLOW	= controls.hexToXY("#ffb400")

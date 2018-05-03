@@ -7,9 +7,9 @@
 from .BaseAnimation import BaseAnimation
 
 class FlashAnimation(BaseAnimation):
-	def __init__(self, controls, lights=[], colors=[], numCycles=1, speed=1, numFlashes=4):
+	def __init__(self, lights=[], colors=[], numCycles=1, speed=1, numFlashes=4):
 		self._numFlashes = numFlashes
-		super(FlashAnimation, self).__init__(controls, lights, colors, numCycles, speed)
+		super(FlashAnimation, self).__init__(lights, colors, numCycles, speed)
 
 	def _generateAnimationSequence(self):
 		# Start with all lights color 0
