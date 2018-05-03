@@ -22,9 +22,11 @@ lights = [
 	fuselights.sink.lightID,
 	fuselights.cabinet.lightID,
 ]
-animation = FlashAnimation(controls, lights, [WHITE, RED, BLUE], numCycles=2, numFlashes=3)
+flashAnimation = FlashAnimation(controls, lights, [WHITE, RED, BLUE], numCycles=2, numFlashes=3)
+twinkleAnimation = TwinkleFadeAnimation(controls, lights, [RED, BLUE, ORANGE], numCycles=2)
 
 if __name__ == '__main__':
 	controls.startLightQueue()
-	animation.runAnimation()
+	#flashAnimation.runAnimation()
+	twinkleAnimation.runAnimation()
 	controls.stopLightQueue()

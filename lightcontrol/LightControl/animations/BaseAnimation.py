@@ -4,12 +4,7 @@
 	BaseAnimation: Base Animation Class
 '''
 
-import logging
-
-if __name__ == '__main__':
-	from AnimationStep import AnimationStep
-else:
-	from .AnimationStep import AnimationStep
+from .AnimationStep import AnimationStep
 
 class BaseAnimation(object):
 	def __init__(self, controls, lights=[], colors=[], numCycles=1, speed=1):

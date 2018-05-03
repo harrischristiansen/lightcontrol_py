@@ -3,12 +3,8 @@
 	Light Controls - https://github.com/harrischristiansen/lightcontrol_py
 	FlashAnimation: Animation with Flashing Lights
 '''
-import logging
 
-if __name__ == '__main__':
-	from BaseAnimation import BaseAnimation
-else:
-	from .BaseAnimation import BaseAnimation
+from .BaseAnimation import BaseAnimation
 
 class FlashAnimation(BaseAnimation):
 	def __init__(self, controls, lights=[], colors=[], numCycles=1, speed=1, numFlashes=4):
