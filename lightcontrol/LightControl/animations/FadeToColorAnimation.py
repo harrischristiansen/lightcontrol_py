@@ -6,7 +6,7 @@
 
 TS_TIME = 50
 
-from .BaseAnimation import BaseAnimation
+from .base.BaseAnimation import BaseAnimation
 
 class FadeToColorAnimation(BaseAnimation):
 	def __init__(self, lights=[], colors=[], numCycles=1, speed=1, brightness=255, tsTime=TS_TIME):

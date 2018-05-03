@@ -4,8 +4,7 @@
 	BaseAnimation: Base Animation Class
 '''
 
-from .AnimationStep import AnimationStep
-from ..lights.light import Light
+from LightControl import AnimationStep, Light
 
 class BaseAnimation(object):
 	def __init__(self, lights=[], colors=[], numCycles=1, speed=1):

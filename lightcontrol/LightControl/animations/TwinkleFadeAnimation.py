@@ -8,7 +8,7 @@ TS_TIME = 60
 LOW_BRI = 90
 HIGH_BRI = 240
 
-from .BaseAnimation import BaseAnimation
+from .base.BaseAnimation import BaseAnimation
 
 class TwinkleFadeAnimation(BaseAnimation):
 	def _generateAnimationSequence(self):

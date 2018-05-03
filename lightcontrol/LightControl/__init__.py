@@ -5,7 +5,7 @@ from LightControl.lights.light import Light
 from LightControl.viewer.viewer import ControlsViewer
 
 # Animations
-from LightControl.animations.AnimationStep import AnimationStep
+from LightControl.animations.base.AnimationStep import AnimationStep
 from LightControl.animations.ChaseAnimation import ChaseAnimation
 from LightControl.animations.FadeToColorAnimation import FadeToColorAnimation
 from LightControl.animations.FlashAnimation import FlashAnimation

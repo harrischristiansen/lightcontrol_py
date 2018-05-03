@@ -7,7 +7,7 @@
 LOW_BRI = 90
 HIGH_BRI = 200
 
-from .BaseAnimation import BaseAnimation
+from .base.BaseAnimation import BaseAnimation
 
 class FlashAnimation(BaseAnimation):
 	def __init__(self, lights=[], colors=[], numCycles=1, speed=1, numFlashes=4):

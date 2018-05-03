@@ -7,7 +7,7 @@
 LOW_BRI = 60
 HIGH_BRI = 240
 
-from .BaseAnimation import BaseAnimation
+from .base.BaseAnimation import BaseAnimation
 
 class ChaseAnimation(BaseAnimation):
 	def __init__(self, lights=[], colors=[], numCycles=1, speed=1, blockSize=1, moveDelay=0.5):
