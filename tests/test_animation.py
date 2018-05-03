@@ -14,6 +14,6 @@ twinkleAnimation = TwinkleFadeAnimation(fuselights.mainroom, [ORANGE, BLUE, RED,
 
 if __name__ == '__main__':
 	controls.startLightQueue()
-	#flashAnimation.runAnimation()
-	twinkleAnimation.runAnimation()
+	flashAnimation.runAnimation()
+	#twinkleAnimation.runAnimation()
 	controls.stopLightQueue()
