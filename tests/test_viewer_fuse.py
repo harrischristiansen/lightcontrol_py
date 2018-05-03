@@ -20,7 +20,7 @@ if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)
 	viewer = ControlsViewer("Hue Lights")
 	viewer.setTitle("Hue Lights")
-	viewer.setLights(fuselights.lights)
+	viewer.setLights(fuselights.alllights)
 	viewer.setAction(0, setLightsBlue)
 	viewer.setAction(1, setLightsGreen)
 	viewer.mainViewerLoop()
