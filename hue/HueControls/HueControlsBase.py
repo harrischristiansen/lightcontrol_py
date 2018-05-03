@@ -80,6 +80,7 @@ class HueControlsBase(object):
 			request['xy'] = xyColor
 		if hue:
 			request['hue'] = int(hue)
+		request['on'] = (brightness > 2)
 		return json.dumps(request)
 
 	def _emitLightRequest(self, lightID, data):

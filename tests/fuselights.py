@@ -6,6 +6,7 @@
 
 from config import *
 
+globalLight	= [Light(controls, 0, "All Lights", 0, 0)]
 window		= Light(controls, 5, "Window", 0.5, 0.9)
 couch		= Light(controls, 6, "Couch", 0.5, 0.8)
 mid			= Light(controls, 8, "Middle", 0.5, 0.6)

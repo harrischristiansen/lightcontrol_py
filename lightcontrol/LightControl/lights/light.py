@@ -21,7 +21,10 @@ class Light(object):
 		return "%s (%d): (%f, %f)" % (self.lightName, self.lightID, self.x, self.y)
 
 	def setLight(self, xyColor, brightness=255, tsTime=5):
-		self._controls.setLight(self.lightID, xyColor, brightness=brightness, transitionTime=tsTime)
+		if self.lightID == 0:
+			self._controls.setAllLights(xyColor, brightness=brightness, transitionTime=tsTime)
+		else:
+			self._controls.setLight(self.lightID, xyColor, brightness=brightness, transitionTime=tsTime)
 
 if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)
