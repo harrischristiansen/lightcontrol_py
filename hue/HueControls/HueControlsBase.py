@@ -32,6 +32,9 @@ class HueControlsBase(object):
 	def startLightQueue(self):
 		self._spawn(self._update_queue.run_forever)
 
+	def stopLightQueue(self):
+		self._update_queue.stop()
+
 	# Request URLs
 
 	def _getLightsURL(self):
