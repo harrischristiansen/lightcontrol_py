@@ -30,6 +30,9 @@ class BaseAnimation(object):
 				step.triggerStep()
 
 	def createStep(self, light, color, bri=255, tsTime=0, sTime=-1):
+		tsTime *= self._speed
+		if sTime > 0:
+			sTime *= self._speed
 		return AnimationStep(light, color, bri=bri, tsTime=tsTime, sTime=sTime)
 
 	def _generateAnimationSequence(self):
