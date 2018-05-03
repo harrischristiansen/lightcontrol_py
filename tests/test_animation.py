@@ -23,7 +23,7 @@ lights = [
 	fuselights.cabinet.lightID,
 ]
 flashAnimation = FlashAnimation(controls, lights, [WHITE, RED, BLUE], numCycles=2, numFlashes=3)
-twinkleAnimation = TwinkleFadeAnimation(controls, lights, [RED, BLUE, ORANGE], numCycles=2)
+twinkleAnimation = TwinkleFadeAnimation(controls, lights, [ORANGE, BLUE, RED, PURPLE, GREEN], numCycles=2)
 
 if __name__ == '__main__':
 	controls.startLightQueue()
