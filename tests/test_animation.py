@@ -22,7 +22,7 @@ lights = [
 	fuselights.sink.lightID,
 	fuselights.cabinet.lightID,
 ]
-animation = FlashAnimation(controls, lights, [WHITE, RED, BLUE], numCycles=2)
+animation = FlashAnimation(controls, lights, [WHITE, RED, BLUE], numCycles=2, numFlashes=3)
 
 if __name__ == '__main__':
 	controls.startLightQueue()

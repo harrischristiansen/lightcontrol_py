@@ -16,7 +16,7 @@ class AnimationStep(object):
 		self._sTime = sTime						# Sleep Time
 
 		if self._sTime == -1:
-			self._sTime = (self._tsTime/10)+.1
+			self._sTime = (self._tsTime/10)+.13
 
 	def triggerStep(self):
 		self._controls.setLight(self._lightID, self._color, transitionTime=self._tsTime)

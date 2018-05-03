@@ -20,9 +20,13 @@ class BaseAnimation(object):
 		self._numCycles = sorted((1, numCycles, 100))[1]	# Number of cycles to loop animation
 		self._speed = sorted((0, speed, 10))[1]				# Render speed for animation
 
+		self._initialSequence = []
+		self._sequence = []
 		self._generateAnimationSequence()
 
 	def runAnimation(self):
+		for step in self._initialSequence:
+			step.triggerStep()
 		for i in range(self._numCycles):
 			for step in self._sequence:
 				step.triggerStep()
@@ -31,4 +35,5 @@ class BaseAnimation(object):
 		return AnimationStep(self._controls, lightID, color, tsTime, sTime)
 
 	def _generateAnimationSequence(self):
+		self._initialSequence = []
 		self._sequence = []
