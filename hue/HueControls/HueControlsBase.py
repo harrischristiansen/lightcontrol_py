@@ -4,9 +4,12 @@
 	HueControls: Package for controlling Philips Hue Lights
 '''
 
+import asyncio
+import concurrent.futures
 import json
 import logging
 import requests
+import threading
 
 class HueControlsBase(object):
 	def __init__(self, hueIPaddr, hueAPIKey):
@@ -19,11 +22,22 @@ class HueControlsBase(object):
 		self._apiPath = '/api' + '/' + self._apiKey
 		self._apiURL = self._baseURL + self._apiPath
 
+		self._queue_executor = concurrent.futures.ThreadPoolExecutor(max_workers=20)
+		self._update_queue = asyncio.get_event_loop()
+
 		self._lights = self._lightIDs = {}
 		self._lightCount = 0
 		self._loadLights()
 
-	# Request URLs
+	# --------------- Multithreading Light Queue ---------------
+
+	def startLightQueue(self):
+		self._spawn(self._update_queue.run_forever)
+
+	def stopLightQueue(self):
+		self._update_queue.stop()
+
+	# --------------- Request URLs ---------------
 
 	def _getLightsURL(self):
 		return self._apiURL + '/lights/'
@@ -37,7 +51,7 @@ class HueControlsBase(object):
 	def _getGroupActionPutURL(self, groupID):
 		return self._apiURL + '/groups/' + str(groupID) +'/action'
 
-	# Get Requests
+	# --------------- GET Requests ---------------
 
 	def _getLightRequest(self, lightID):
 		light = requests.get(self._getLightQueryURL(lightID))
@@ -54,7 +68,7 @@ class HueControlsBase(object):
 		self._lightCount = len(self._lights)
 		logging.debug("Connected to Hue Bridge!")
 
-	# Put Requests
+	# --------------- PUT Requests ---------------
 
 	def _buildRequest(self, brightness=None, transitionTime=None, xyColor=None, hue=None):
 		request = {}
@@ -68,8 +82,23 @@ class HueControlsBase(object):
 			request['hue'] = int(hue)
 		return json.dumps(request)
 
-	def _putLightRequest(self, lightID, data):
+	def _emitLightRequest(self, lightID, data):
 		return requests.put(self._getLightPutURL(lightID), data=data)
+
+	def _putLightRequest(self, lightID, data):
+		self._update_queue.run_in_executor(
+			self._queue_executor, 
+			self._emitLightRequest, 
+			lightID,
+			data
+		)
+
+	# --------------- Helpers ---------------
+
+	def _spawn(self, f, *args):
+		t = threading.Thread(target=f, args=args)
+		#t.daemon = True
+		t.start()
 
 if __name__ == '__main__':
 	logging.basicConfig(level=logging.DEBUG)
