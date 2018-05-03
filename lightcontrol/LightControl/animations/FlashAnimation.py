@@ -18,7 +18,7 @@ class FlashAnimation(BaseAnimation):
 		# Start with all lights color 0
 		self._initialSequence = []
 		for light in self._lights:
-			step = self.createStep(light, self._colors[0], bri=LOW_BRI, tsTime=1)
+			step = self.createStep(light, self._colors[0], bri=LOW_BRI, tsTime=100, sTime=0.02)
 			self._initialSequence.append(step)
 
 		# Randomly strobe each light using colors 1 and 2, reset to 0

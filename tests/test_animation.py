@@ -9,11 +9,16 @@ logging.basicConfig(level=logging.DEBUG)
 from config import *
 
 import fuselights
-flashAnimation = FlashAnimation(fuselights.mainroom, [WHITE, RED, BLUE], numCycles=2, numFlashes=3)
-twinkleAnimation = TwinkleFadeAnimation(fuselights.mainroom, [ORANGE, BLUE, RED, PURPLE, GREEN], numCycles=4)
-chaseAnimation = ChaseAnimation(fuselights.mainroom, [PURPLE, RED, BLUE], numCycles=3, blockSize=12, moveDelay=0.25)
+lights = fuselights.mainroom
+flashAnimation = FlashAnimation(lights, [YELLOW, RED, BLUE], numCycles=1, numFlashes=3)
+twinkleAnimation = TwinkleFadeAnimation(lights, [ORANGE, BLUE, RED, PURPLE, GREEN], numCycles=1)
+chaseAnimation = ChaseAnimation(lights, [PURPLE, RED, BLUE], numCycles=2, blockSize=len(lights), moveDelay=0.3)
 
 if __name__ == '__main__':
 	controls.startLightQueue()
-	chaseAnimation.runAnimation()
+	while True:
+		chaseAnimation.runAnimation()
+		flashAnimation.runAnimation()
+		twinkleAnimation.runAnimation()
+		flashAnimation.runAnimation()
 	controls.stopLightQueue()
