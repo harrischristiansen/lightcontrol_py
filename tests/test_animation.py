@@ -10,19 +10,15 @@ from config import *
 
 import fuselights
 lights = fuselights.mainroom
-flashAnimation = FlashAnimation(lights, [WHITE, RED, BLUE], numCycles=1, numFlashes=3)
-twinkleAnimation = TwinkleFadeAnimation(lights, [ORANGE, BLUE, RED, PURPLE, GREEN], numCycles=1)
-chaseAnimation = ChaseAnimation(lights, [PURPLE, RED, BLUE], numCycles=2, blockSize=len(lights), moveDelay=0.3)
-fadeToBlackAnimation = FadeToColorAnimation(fuselights.globalLight, [BLUE], brightness=1, tsTime=20)
-fadeToColorAnimation = FadeToColorAnimation(fuselights.globalLight, [WHITE], brightness=100, tsTime=1)
+flashAnimation = FlashAnimation(lights, [ORANGE, RED, BLUE], numCycles=1, numFlashes=4)
+twinkleAnimation = TwinkleFadeAnimation(lights, [ORANGE, BLUE, RED, ORANGE, PURPLE, GREEN], numCycles=2)
+chaseAnimation = ChaseAnimation(lights, [PURPLE, RED, BLUE], numCycles=2, blockSize=7, moveDelay=0.8)
+fadeToBlackAnimation = FadeToColorAnimation(fuselights.globalLight, [WHITE], brightness=1, tsTime=1)
+fadeToColorAnimation = FadeToColorAnimation(fuselights.globalLight, [BLUE], brightness=200, tsTime=10)
 
 if __name__ == '__main__':
 	controls.startLightQueue()
 	while True:
-		chaseAnimation.runAnimation()
-		fadeToBlackAnimation.runAnimation()
-		fadeToColorAnimation.runAnimation()
-		flashAnimation.runAnimation()
 		twinkleAnimation.runAnimation()
-		flashAnimation.runAnimation()
+		chaseAnimation.runAnimation()
 	controls.stopLightQueue()

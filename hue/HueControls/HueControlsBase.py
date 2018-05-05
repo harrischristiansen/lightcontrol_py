@@ -98,7 +98,7 @@ class HueControlsBase(object):
 
 	def _spawn(self, f, *args):
 		t = threading.Thread(target=f, args=args)
-		#t.daemon = True
+		t.daemon = True
 		t.start()
 
 if __name__ == '__main__':
