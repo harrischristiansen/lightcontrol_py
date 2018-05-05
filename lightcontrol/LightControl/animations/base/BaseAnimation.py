@@ -15,18 +15,26 @@ class BaseAnimation(object):
 		self._lightsLen = len(lights)						# Count of lights for animation
 		self._colors = colors								# List of colors for animation
 		self._numCycles = sorted((1, numCycles, 100))[1]	# Number of cycles to loop animation
-		self._speed = sorted((0, speed, 10))[1]				# Render speed for animation
+		self._speed = sorted((0, speed, 1000))[1]			# Render speed for animation
 
+		self._running = True
 		self._initialSequence = []
 		self._sequence = []
 		self._generateAnimationSequence()
 
-	def runAnimation(self):
+	def run(self):
 		for step in self._initialSequence:
 			step.triggerStep()
+			if not self._running:
+				return False
 		for i in range(self._numCycles):
 			for step in self._sequence:
 				step.triggerStep()
+				if not self._running:
+					return False
+
+	def stop(self):
+		self._running = False
 
 	def createStep(self, light, color, bri=255, tsTime=0, sTime=-1):
 		tsTime *= self._speed

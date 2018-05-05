@@ -29,6 +29,8 @@ kitchen = [cabinet, sink, oven, bar, fridge]
 living = [tvstand, mid, couch, tv, window, wall, table]
 guest = [lamp_top, lamp_mid, lamp_btm]
 bath = [bath_main, bath_guest]
+ceiling = [sink, oven, bar, mid, couch, tv, window]
+background = [cabinet, fridge, tvstand, wall]
 
 mainroom = kitchen+living
 alllights = kitchen+living+guest+bath
