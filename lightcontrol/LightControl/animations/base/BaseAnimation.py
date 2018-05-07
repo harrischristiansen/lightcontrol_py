@@ -23,6 +23,7 @@ class BaseAnimation(object):
 		self._generateAnimationSequence()
 
 	def run(self):
+		self._running = True
 		for step in self._initialSequence:
 			step.triggerStep()
 			if not self._running:

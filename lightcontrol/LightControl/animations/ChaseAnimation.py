@@ -5,7 +5,7 @@
 '''
 
 LOW_BRI = 60
-HIGH_BRI = 240
+HIGH_BRI = 180
 
 from .base.BaseAnimation import BaseAnimation
 

@@ -30,7 +30,7 @@ living = [tvstand, mid, couch, tv, window, wall, table]
 guest = [lamp_top, lamp_mid, lamp_btm]
 bath = [bath_main, bath_guest]
 ceiling = [sink, oven, bar, mid, couch, tv, window]
-background = [cabinet, fridge, tvstand, wall]
+background = [cabinet, fridge, tvstand, wall, lamp_top, lamp_btm]
 
 mainroom = kitchen+living
 alllights = kitchen+living+guest+bath
