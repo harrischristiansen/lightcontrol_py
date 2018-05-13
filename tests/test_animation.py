@@ -10,7 +10,10 @@ from config import *
 
 import fuselights
 lights = fuselights.mainroom
-flashAnimation = FlashAnimation(lights, [ORANGE, RED, BLUE], numCycles=2, numFlashes=4)
+l1			= Light(controls, 3, "TV", 0.5, 0.7)
+l2			= Light(controls, 5, "TV", 0.5, 0.7)
+lights = [l1, l2]
+flashAnimation = FlashAnimation(lights, [ORANGE, RED, BLUE], numCycles=20, numFlashes=4)
 twinkleAnimation = TwinkleFadeAnimation(lights, [ORANGE, BLUE, RED, ORANGE, PURPLE, GREEN], numCycles=2)
 chaseAnimation = ChaseAnimation(lights, [PURPLE, GREEN, BLUE], numCycles=2, blockSize=6, moveDelay=0.2)
 fadeToBlackAnimation = FadeToColorAnimation(fuselights.globalLight, [WHITE], brightness=1, tsTime=1)
@@ -23,5 +26,5 @@ compositeAnimation = CompositeAnimation(ceilingAnimation, [bgAnimation])
 if __name__ == '__main__':
 	controls.startLightQueue()
 	while True:
-		compositeAnimation.run()
+		flashAnimation.run()
 	controls.stopLightQueue()

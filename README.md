@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-This is a collection of light controllers written in Python, for use with [Philips Hue](https://www2.meethue.com/) and other smart lighting systems.  
+A collection of light controllers written in Python, for use with [Philips Hue](https://www2.meethue.com/) and other smart lighting systems.  
 
 Project available on [GitHub](https://github.com/harrischristiansen/lightcontrol_py).  
 
@@ -12,12 +12,14 @@ Project available on [GitHub](https://github.com/harrischristiansen/lightcontrol
 - [ ] Install Dependencies: `pip3 install -r requirements.txt`
 - [ ] Install Local Packages:
 	- [ ] Hue Controls: `pip3 install -e hue`
-	- [ ] Hue Controls: `pip3 install -e lightcontrol`
+	- [ ] Light Controls: `pip3 install -e lightcontrol`
 
 ## Tests: `cd tests`
 
 - [ ] Animation Test: `python3 test_animation.py`
+- [ ] Audio Animation Test: `python3 test_audio_animation.py`
+	- [ ] Requires Package: [LuminaryAudio](https://github.com/harrischristiansen/PyAudio-Tools)
 
 ## Contributors
 
-@harrischristiansen [HarrisChristiansen.com](http://www.harrischristiansen.com) (code@harrischristiansen.com)  
+[@harrischristiansen](http://github.com/harrischristiansen) - [HarrisChristiansen.com](http://www.harrischristiansen.com) (code@harrischristiansen.com)  
